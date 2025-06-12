@@ -9,6 +9,7 @@ class VideoOptions():
         self.miliseconds = StringVar(value=00)
         self.result      = StringVar(value=None)
 
+    # show time dropdowns
     def setTimeOptions(self, text):
         self.root.pack(pady=5, padx=10)
         self.setTitleOptions(text)
@@ -20,20 +21,25 @@ class VideoOptions():
         self.printSeparator()
         self.printSpinbox(self.miliseconds, 0, 999)
 
+    # show title video options
     def setTitleOptions(self, text):
         title = Label(self.root, text=text, justify="left")
         title.pack(pady=5, anchor="w")
 
+    # time separator
     def printSeparator(self):
         separator = Label(self.root, text=":")
         separator.pack(side=LEFT)
 
+    # print spinbox
     def printSpinbox(self, item, fromTime, toTime):
         spinbox = Spinbox(self.root, from_=fromTime, to=toTime, textvariable=item, wrap=True, width=8)
         spinbox.pack(side=LEFT, anchor="w")
 
+    # set time
     def setTimeResult(self):
         self.result.set( self.hours.get() + ':' + self.minutes.get() + ':' + self.seconds.get() + ':' + self.miliseconds.get() )
 
+    # get time
     def getTimeResult(self):
         return self.result.get()

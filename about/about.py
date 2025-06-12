@@ -5,6 +5,7 @@ class About():
         self.root  = root
         self.title = "About"
 
+    # about section
     def setAbout(self):
         self.getDescriptionBlockText("How to use", 10, 10)
 
@@ -12,6 +13,7 @@ class About():
         for item in texts:
             self.getDescriptionBlockText(item, 5, 20)
 
+    # block text
     def getDescriptionBlockText(self, text, py, px):
         label = Label(self.root, text=text, justify="left")
         label.pack(pady=py, padx=px, anchor="w")
