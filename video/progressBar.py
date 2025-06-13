@@ -10,9 +10,3 @@ class ProgressBar():
         self.progressbar = ctk.CTkProgressBar(self.root, orientation="horizontal")
         self.progressbar.pack()
         self.progressbar.start()
-
-    # stop progress bar
-    # not tested
-    def stopBar(self):
-        self.progressBar.stop()
-            

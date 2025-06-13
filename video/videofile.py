@@ -1,53 +1,32 @@
 from tkinter import *
-from tkinter import filedialog
 import customtkinter as ctk
 from video.videoOptions import VideoOptions
 from video.videoEdit import VideoEdit
 from video.progressBar import ProgressBar
+from video.files import File
 from errors.errors import Errors
 
 class VideoFile():
     def __init__(self, root):
-        self.root      = root
-        self.start     = None
-        self.end       = None
-        self.filename  = None
-
-    # get file extension
-    def getFileExtension(self):
-        self.filename = filedialog.askopenfilename()
-        fileExtension = self.filename[-4:]
-
-        return fileExtension
-    
-    # print filename
-    def printFileName(self):
-        label = Label(self.root, text="File: ", justify="left")
-        label.pack(pady=5, padx=10, anchor="w")
-
-        frame      = Frame(self.root, width="100", bg='#0c446e')
-        some_label = Label(frame, text=self.filename, justify="left", fg='#fdde0e', bg='#0c446e')
-        some_label.pack(pady=5, padx=10, anchor="w")
-
-        frame['borderwidth'] = 1
-        frame['relief']      = 'solid'
-        frame.pack(side="top", fill="x", pady=5, padx=10)
+        self.root  = root
+        self.start = None
+        self.end   = None
+        self.file  = None
 
     # select file on computer
     def selectFile(self):
-        fileExtension = self.getFileExtension()
+        self.file = File(self.root)
 
-        if fileExtension != '':
-            if fileExtension not in [ '.mov', '.flv', '.avi', '.jpg' ]:
+        if self.file.getFileExtension() != '':
+            if self.file.getFileExtension() not in self.file.getAllowedFileExtensions():
                 error = Errors()
                 error.notAllowedError()
             else:
-                self.printFileName()
+                self.file.printFileName()
                 self.start = VideoOptions(self.root)
                 self.start.setTimeOptions("Start to cut on :")
                 self.end   = VideoOptions(self.root)
                 self.end.setTimeOptions("End to cut on :")
-
                 self.setSubmitButton()
 
     # set spinbox results
@@ -84,16 +63,11 @@ class VideoFile():
         self.setTimeResults()
         self.editVideo()
         self.clearFrame()
-        self.printFileName()
+        self.file.printFileName()
         self.breakLine()
         self.printResults()
         self.breakLine()
         self.getProgressBar()
-
-    # clear frame info
-    def clearFrame(self):
-        for widget in self.root.winfo_children():
-            widget.pack_forget()
 
     # print data
     def printResults(self):
@@ -101,3 +75,8 @@ class VideoFile():
         title.pack(pady=5)
         title = Label(self.root, text="end: " + self.end.getTimeResult(), justify="center")
         title.pack(pady=5)
+
+    # clear frame info
+    def clearFrame(self):
+        for widget in self.root.winfo_children():
+            widget.pack_forget()
