@@ -6,7 +6,6 @@ class VideoOptions():
         self.hours       = StringVar(value=00)
         self.minutes     = StringVar(value=00)
         self.seconds     = StringVar(value=00)
-        self.miliseconds = StringVar(value=00)
         self.result      = StringVar(value=None)
 
     # show time dropdowns
@@ -18,8 +17,6 @@ class VideoOptions():
         self.printSpinbox(self.minutes, 0 , 59)
         self.printSeparator()
         self.printSpinbox(self.seconds, 0, 59)
-        self.printSeparator()
-        self.printSpinbox(self.miliseconds, 0, 999)
 
     # show title video options
     def setTitleOptions(self, text):
@@ -38,7 +35,7 @@ class VideoOptions():
 
     # set time
     def setTimeResult(self):
-        self.result.set( self.hours.get() + ':' + self.minutes.get() + ':' + self.seconds.get() + ':' + self.miliseconds.get() )
+        self.result.set( self.hours.get() + ':' + self.minutes.get() + ':' + self.seconds.get() )
 
     # get time
     def getTimeResult(self):

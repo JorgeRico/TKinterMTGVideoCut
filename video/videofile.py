@@ -2,7 +2,7 @@ from tkinter import *
 import customtkinter as ctk
 from video.videoOptions import VideoOptions
 from video.videoEdit import VideoEdit
-from video.progressBar import ProgressBar
+# from video.progressBar import ProgressBar
 from video.files import File
 from errors.errors import Errors
 
@@ -22,7 +22,7 @@ class VideoFile():
                 error = Errors()
                 error.notAllowedError()
             else:
-                self.file.printFileName()
+                self.file.printFileName(self.file.getFile())
                 self.start = VideoOptions(self.root)
                 self.start.setTimeOptions("Start to cut on :")
                 self.end   = VideoOptions(self.root)
@@ -33,16 +33,23 @@ class VideoFile():
     def setTimeResults(self):
         self.start.setTimeResult()
         self.end.setTimeResult()
-
+       
     # call edit video
     def editVideo(self):
-        editVideo = VideoEdit(self.start.getTimeResult(), self.end.getTimeResult())
+        editVideo = VideoEdit(self.start.getTimeResult(), self.end.getTimeResult(), self.file.getFile())
         editVideo.edit()
+        self.clearFrame()
+        self.file.printFileName(editVideo.getCutFileName())
+        title = Label(self.root, text="Done!", justify="center")
+        title.pack(pady=5)
 
     # show progress bar
     def getProgressBar(self):
-        progressBar = ProgressBar(self.root)
-        progressBar.startBar()
+        title = Label(self.root, text="cutting video . . . . ", justify="center")
+        title.pack(pady=5)
+        # extrange progressbar stop on edit video launch
+        # progressBar = ProgressBar(self.root)
+        # progressBar.startBar()
 
     # add a break line space
     def breakLine(self):
@@ -52,7 +59,9 @@ class VideoFile():
     # submit button - starts cut process
     def setSubmitButton(self):
         def submitClicked():
-            self.processVideo()   
+            submit_button.pack_forget()
+            submit_button.after(10, self.printResults)
+            submit_button.after(100, self.processVideo)
         
         self.breakLine()
         submit_button = ctk.CTkButton(self.root, text="Crop video", command=submitClicked)
@@ -60,21 +69,15 @@ class VideoFile():
 
     # process video
     def processVideo(self):
-        self.setTimeResults()
         self.editVideo()
-        self.clearFrame()
-        self.file.printFileName()
-        self.breakLine()
-        self.printResults()
-        self.breakLine()
-        self.getProgressBar()
-
+        
     # print data
     def printResults(self):
-        title = Label(self.root, text="start: " + self.start.getTimeResult(), justify="center")
-        title.pack(pady=5)
-        title = Label(self.root, text="end: " + self.end.getTimeResult(), justify="center")
-        title.pack(pady=5)
+        self.clearFrame()
+        self.file.printFileName(self.file.getFile())
+        self.breakLine()
+        self.setTimeResults()
+        self.getProgressBar()
 
     # clear frame info
     def clearFrame(self):
