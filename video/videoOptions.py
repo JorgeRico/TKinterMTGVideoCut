@@ -40,3 +40,13 @@ class VideoOptions():
     # get time
     def getTimeResult(self):
         return self.result.get()
+    
+    # add a break line space
+    def breakLine(self):
+        some_label = Label(self.root, justify="left")
+        some_label.pack(pady=0, padx=10, anchor="w")
+
+    # clear frame info
+    def clearFrame(self):
+        for widget in self.root.winfo_children():
+            widget.pack_forget()

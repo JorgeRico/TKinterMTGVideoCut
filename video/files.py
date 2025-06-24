@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import filedialog
 import os
+from errors.errors import Errors
 
 class File():
     def __init__(self, root):
@@ -8,6 +9,16 @@ class File():
         # get file from computer
         self.file     = filedialog.askopenfilename()
         self.filename = os.path.basename(self.file)
+
+    # select file on computer
+    def checkComputerFile(self):
+        if self.getFileExtension() != '':
+            if self.getFileExtension() not in self.getAllowedFileExtensions():
+                error = Errors()
+                error.notAllowedError()
+                return False
+
+        return True
 
     # get file with absolute route
     def getFile(self):

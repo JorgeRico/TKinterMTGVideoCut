@@ -1,6 +1,7 @@
 from tkinter import *
 from about.about import About
-from video.videofile import VideoFile
+from video.functions.edit import VideoEdit
+from video.functions.concat import VideoConcat
 
 class AppMenu():
     def __init__(self):
@@ -28,7 +29,8 @@ class AppMenu():
     # get file menu option
     def getFileMenu(self):
         filemenu = Menu(self.menubar, tearoff=0)
-        filemenu.add_command(label="Open", command=self.getFile)
+        filemenu.add_command(label="Cut File", command=self.getFile)
+        filemenu.add_command(label="Concat Files", command=self.concatFiles)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=self.exit)
 
@@ -48,8 +50,14 @@ class AppMenu():
     # get file
     def getFile(self):
         self.clearFrame()
-        video = VideoFile(self.root)
-        video.selectFile()
+        video = VideoEdit(self.root)
+        video.cutFile()
+
+    def concatFiles(self):
+        print("concat files")
+        self.clearFrame()
+        video = VideoConcat(self.root)
+        video.concatFiles()
 
     # get abount
     def getAbout(self):
