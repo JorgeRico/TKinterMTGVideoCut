@@ -9,8 +9,8 @@ class VideoEdit():
         self.vcodec       = "libx264"
         self.videoquality = "24"
         # slow, ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow
-        self.compression = "slow"
-        self.savetitle   = 'file_cutted_'+ f'{datetime.now():%Y_%m_%d_%H_%M_%S}' + '.mp4'
+        self.compression = "ultrafast"
+        self.savetitle   = 'file_cutted_'+ f'{datetime.now():%Y_%m_%d_%H_%M_%S}' + '.mkv'
         self.file        = file
 
     def getCutFileName(self):

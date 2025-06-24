@@ -25,7 +25,7 @@ class File():
     
     # allowed file extensions
     def getAllowedFileExtensions(self):
-        return [ '.mov', '.flv', '.avi', '.mp4' ]
+        return [ '.mov', '.flv', '.avi', '.mp4', '.mkv' ]
     
     # print filename
     def printFileName(self, filename):
