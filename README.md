@@ -13,3 +13,10 @@ pip install moviepy
 ````
 py app.py
 ````
+
+#### Windows executable
+````
+pip install auto-py-to-exe
+$ auto-py-to-exe
+$ output: app.exe
+````
